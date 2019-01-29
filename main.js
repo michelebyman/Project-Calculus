@@ -14,3 +14,5 @@ for(number of NUMBERS){
 for(symbol of FUNCTION_BUTTON_2){
   $(".functionButtons2").append("<button>" + symbol + "</button>");
 }
+
+console.log("test");
