@@ -26,6 +26,7 @@ const DISPLAY = $(".display")[0];
 // Some global variables
 let evalString = "";
 let clear = false;
+let equalsPressed = false;
 
 // Add event listeners to all buttons
 for (let button of BUTTONS) {
@@ -42,6 +43,7 @@ for (let button of BUTTONS) {
 
       // If the button has the value "="
       if(button.innerHTML == "="){
+        equalsPressed = true;
         calc()
       }else{
         calc()
@@ -65,7 +67,11 @@ for (let button of BUTTONS) {
     // Event listeners for number buttons
     button.addEventListener("click", function() {
       // If the value in the display is 0..
-      if(DISPLAY.value == 0 || clear){
+      if(equalsPressed){
+        DISPLAY.value = this.innerHTML;
+        evalString = this.innerHTML;
+        equalsPressed = false;
+      }else if(DISPLAY.value == 0 || clear){
         // ..Replace the value
         DISPLAY.value = this.innerHTML;
         evalString += this.innerHTML;
@@ -87,11 +93,35 @@ for (let button of BUTTONS) {
 function calc(){
   // If the string to evaluate contains a number, then an operator, then a number
   if(evalString.match(/[0-9][*/+-][0-9]/)){
+
+    // Add the calculation to the history arrays
+    history.push(evalString + "=" + eval(evalString));
+    console.log(history);
+    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>")
+    $("#counter").text('Lines: ' + history.length);
     // Evaluate it and draw it on the display
     evalString = eval(evalString).toString();
     DISPLAY.value = evalString.toString();
   }
 }
+
+
+// List of calculated expressions
+let history = [];
+$('body').prepend('<div id="historyBox"></div>');
+$('#historyBox').css({
+  width: '300px',
+  height: '500px',
+  fontSize: '24px',
+  overflow: 'auto',
+  backgroundColor: '#333',
+  color: '#ccc',
+  padding: '20px',
+  border: '0 solid',
+  borderRadius: '10px 0 0 10px',
+  overflowWrap: 'break-word'
+});
+$('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
 
 
 (function theTimer(){
