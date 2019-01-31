@@ -1,7 +1,19 @@
+* {
+  border: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
 body {
   height: 100vh;
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,47 +21,106 @@ body {
 }
 
 .wrapper {
-  width: 80%;
-  height: 80%;
-  border-radius: 5px;
-  background-color: blue;
+  width: 28rem;
+  height: 50rem;
+  border-radius: 1rem;
 }
 
 .display {
-  width: 100%;
+  width: 27.3rem;
   height: 20%;
-  background-color: red;
-  font-size: 30px;
+  font-size: 4rem;
   text-align: end;
+  outline: none;
+  color: white;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin-right: .5rem;
 }
 
 .wrapperButton {
   height: 80%;
   width: 100%;
-  background-color: aliceblue;
   display: flex;
 }
 
 .left {
   width: 75%;
   height: 100%;
-  background-color: deeppink;
 }
 
 .functionButtons1 {
-  background-color: grey;
   width:100%;
   height: 20%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .numbers {
-  background-color: blueviolet;
   width: 100%;
   height:80%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 
-.functionsButtons2 {
+.functionButtons2 {
   width: 25%;
-  height: 100%;
-  background-color: blueviolet;
+  height: 98%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem;
 }
+
+.functionButtons2 > button{
+  background-color: #fe9203;
+  color: white;
+  border:none;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  outline: none;
+}
+
+.functionButtons1 > button {
+  background-color: #a7a4a7;
+  border:none;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  outline: none;
+  
+}
+
+
+.numbers > button {
+  background-color: #353235;
+  color: white;
+  border:none;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  outline: none;
+  justify-content: baseline;
+  margin-top: .5rem; 
+}
+
+.numbers > button:nth-child(10) {
+  height: 6rem;
+  width: 13rem;
+  border-radius: 5rem;
+  margin-top: 0.5rem;
+  align-self: baseline;
+}
+
+button {
+  font-size: 3rem;
+}
+
+.wrapper, .display {
+  background-color: #000;
+}
+
