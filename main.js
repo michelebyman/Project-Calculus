@@ -90,7 +90,7 @@ function calc(){
 
 (function theTimer(){
 
-on = false;
+let on = false;
 
 $('#start').on('click', function() {
 
@@ -134,6 +134,8 @@ function timerTime() { //timer counter
  $('#timerTime').text(increase);
 }
 
-
 })();
 
+export default {
+ calc()
+}
