@@ -110,8 +110,8 @@ function calc(){
 let history = [];
 $('body').prepend('<div id="historyBox"></div>');
 $('#historyBox').css({
-  width: '300px',
-  height: '500px',
+  width: '28rem',
+  height: '50rem',
   fontSize: '24px',
   overflow: 'auto',
   backgroundColor: '#333',
@@ -172,4 +172,3 @@ function timerTime() { //timer counter
 
 
 })();
-
