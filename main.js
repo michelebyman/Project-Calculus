@@ -21,7 +21,7 @@ for(let symbol of FUNCTION_BUTTON_2){
 
 // Create variables for buttons and display
 const BUTTONS = document.getElementsByTagName("button");
-const DISPLAY = $(".display");
+const DISPLAY = $(".display")[0];
 
 // Some global variables
 let evalString = "";
@@ -32,7 +32,7 @@ for (let button of BUTTONS) {
   if (button.classList == "func1"){
     button.addEventListener("click", function(){
       if(button.innerHTML == "AC"){
-        DISPLAY[0].value = "0";
+        DISPLAY.value = "0";
         evalString = "";
       }
     })
@@ -65,15 +65,21 @@ for (let button of BUTTONS) {
     // Event listeners for number buttons
     button.addEventListener("click", function() {
       // If the value in the display is 0..
-      if(DISPLAY[0].value == 0 || clear){
+      if(DISPLAY.value == 0 || clear){
         // ..Replace the value
-        DISPLAY[0].value = this.innerHTML;
+        DISPLAY.value = this.innerHTML;
+        evalString += this.innerHTML;
         clear = false;
       }else{
-        // ..Append a value
-        DISPLAY[0].value += this.innerHTML;
+        // ..Append a value ()
+        if(this.innerHTML == ","){
+          DISPLAY.value += ".";
+          evalString += ".";
+        }else{
+          DISPLAY.value += this.innerHTML;
+          evalString += this.innerHTML;
+        }
       }
-      evalString += this.innerHTML;
     });
   }
 }
@@ -83,7 +89,7 @@ function calc(){
   if(evalString.match(/[0-9][*/+-][0-9]/)){
     // Evaluate it and draw it on the display
     evalString = eval(evalString).toString();
-    DISPLAY[0].value = evalString.toString();
+    DISPLAY.value = evalString.toString();
   }
 }
 
