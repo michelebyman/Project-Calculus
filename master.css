@@ -26,7 +26,7 @@ body {
 .wrapper {
   width: 28rem;
   height: 50rem;
-  border-radius: 1rem;
+  border-radius: 0 1rem 1rem 0;
 }
 
 .display {
@@ -178,3 +178,6 @@ background-color: #5cb85c;
   font-size: 3rem;
 }
 
+span{
+  margin-right: 10px;
+}
