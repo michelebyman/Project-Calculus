@@ -10,7 +10,7 @@ const NUMBERS = [7,8,9,4,5,6,1,2,3,0,","];
 
 // Fill button containers with buttons
 for (let symbol of FUNCTION_BUTTON_1){
-  $(".functionButtons1").append("<button>" + symbol + "</button>");
+  $(".functionButtons1").append("<button class='func1'>" + symbol + "</button>");
 }
 for(let number of NUMBERS){
   $(".numbers").append("<button>" + number + "</button>");
@@ -29,7 +29,14 @@ let clear = false;
 
 // Add event listeners to all buttons
 for (let button of BUTTONS) {
-  if (button.classList == "func2") {
+  if (button.classList == "func1"){
+    button.addEventListener("click", function(){
+      if(button.innerHTML == "AC"){
+        DISPLAY[0].value = "0";
+        evalString = "";
+      }
+    })
+  }else if (button.classList == "func2") {
     // Event listener for "function 1" buttons
     button.addEventListener("click", function() {
 
