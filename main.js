@@ -18,41 +18,39 @@ for(let symbol of FUNCTION_BUTTON_2){
 const BUTTONS = document.getElementsByTagName("button");
 const DISPLAY = $(".display");
 
-let numbers = [];
-let mathMethod;
+// Some global variables
+let evalString = "";
 let clear = false;
 
 // Add event listeners to all buttons
 for (let button of BUTTONS) {
-
   if (button.classList == "func2") {
-
-
-
+    // Event listener for "function 1" buttons
     button.addEventListener("click", function() {
 
-      if(button.innerHTML != mathMethod){ // ÄNDRA DENNA
-        if(numbers.length == 0){
-          numbers.push(DISPLAY[0].value);
+      // If the button has the value "="
+      if(button.innerHTML == "="){
+        calc()
+      }else{
+        calc()
+
+        let lastChar = evalString.substr(evalString.length - 1);
+
+        // If the last character in evalString isn't an operator
+        if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
+          // Append an operator to evalString
+          evalString += this.innerHTML;
         }else{
-          numbers.push(DISPLAY[0].value);
-          console.log(numbers[0], numbers[1], mathMethod);
-          numbers.unshift(calc(Number(numbers[0]), Number(numbers[1]), mathMethod));
-          DISPLAY[0].value = numbers[0];
-          numbers.splice(1, 2);
+          // Remove the last character and append an operator
+          evalString = evalString.substr(0, evalString.length - 1);
+          evalString += this.innerHTML;
         }
-
-        if(button.innerHTML != "="){
-          mathMethod = button.innerHTML;
-        }
-
-        clear = true;
-        console.log(numbers);
       }
-
-
+      // Set clear to true to clear the display after an operator is appended
+      clear = true;
     });
   }else{
+    // Event listeners for number buttons
     button.addEventListener("click", function() {
       // If the value in the display is 0..
       if(DISPLAY[0].value == 0 || clear){
@@ -63,19 +61,16 @@ for (let button of BUTTONS) {
         // ..Append a value
         DISPLAY[0].value += this.innerHTML;
       }
+      evalString += this.innerHTML;
     });
   }
 }
 
-function calc(a, b, method){
-  switch (method) {
-    case "+":
-    return a + b;
-    case "-":
-    return a - b;
-    case "*":
-    return a * b;
-    case "/":
-    return a / b;
+function calc(){
+  // If the string to evaluate contains a number, then an operator, then a number
+  if(evalString.match(/[0-9][*/+-][0-9]/)){
+    // Evaluate it and draw it on the display
+    evalString = eval(evalString).toString();
+    DISPLAY[0].value = evalString.toString();
   }
 }
