@@ -7,7 +7,10 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -50,7 +53,7 @@ body {
 }
 
 .functionButtons1 {
-  width:100%;
+  width: 100%;
   height: 20%;
   display: flex;
   justify-content: space-around;
@@ -59,7 +62,7 @@ body {
 
 .numbers {
   width: 100%;
-  height:80%;
+  height: 80%;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -75,40 +78,40 @@ body {
   padding: 0.8rem;
 }
 
-.functionButtons2 > button{
+.functionButtons2>button {
   background-color: #fe9203;
   color: white;
-  border:none;
+  border: none;
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
   outline: none;
 }
 
-.functionButtons1 > button {
+.functionButtons1>button {
   background-color: #a7a4a7;
-  border:none;
+  border: none;
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
   outline: none;
-  
+
 }
 
 
-.numbers > button {
+.numbers>button {
   background-color: #353235;
   color: white;
-  border:none;
+  border: none;
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
   outline: none;
   justify-content: baseline;
-  margin-top: .5rem; 
+  margin-top: .5rem;
 }
 
-.numbers > button:nth-child(10) {
+.numbers>button:nth-child(10) {
   height: 6rem;
   width: 13rem;
   border-radius: 5rem;
@@ -120,7 +123,64 @@ button {
   font-size: 3rem;
 }
 
-.wrapper, .display {
+.wrapper,
+.display {
   background-color: #000;
+}
+
+#timerTime {
+  margin-left: 2.8rem;
+}
+
+
+
+.timeWrapper {
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem; 
+}
+
+.toggleButton {
+  opacity: 0.5;
+  width: 7rem;
+  height: 5rem;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: .5rem; 
+  padding-top: 1.2rem; 
+  margin-top: 1.5rem;
+  }
+
+.timerButtons {
+width: 7rem;
+height: 5rem;
+font-size: 2rem;
+text-align: center;
+border-radius: .5rem; 
+padding-top: 1.2rem; 
+margin-top: 1.5rem;
+}
+
+#start {
+background-color: #5cb85c;
+}
+
+#stop {
+  background-color: #d9534f;
+}
+
+#pause {
+  background-color:#337ab7;
+}
+
+#reset {
+  background-color:#f0ad4e;
+}
+
+#timerTime {
+  font-size: 3rem;
+  width: 2rem;
+  height: 2rem;
 }
 
