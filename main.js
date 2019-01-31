@@ -1,3 +1,8 @@
+
+//timer reset
+let increase = 0;
+let timeGo;
+
 // Create arrays with button values
 const FUNCTION_BUTTON_1 = ["AC", "C", "onemore"];
 const FUNCTION_BUTTON_2 = ["/", "*", "-", "+", "="];
@@ -31,3 +36,54 @@ for (button of BUTTONS) {
     }
   });
 }
+
+
+(function theTimer(){
+
+on = false;
+
+$('#start').on('click', function() {
+
+  if (on === false) {
+    $('#start').css('opacity', 0.5);
+    $('#stop').css('opacity', 1);
+    $('#reset').css('opacity', 1);
+    timeGo = setInterval(timerTime, 1000);
+    on = true;
+  }
+});
+
+$('#stop').on('click', function() {
+  clearInterval(timeGo);
+  $('#start').on();
+  $('#start').css('opacity', 1);
+
+  $('#stop').css('opacity', 0.5);
+  $('#reset').css('opacity', 1);
+
+
+  on = false;
+ });
+
+$('#reset').on('click', function() {
+  clearInterval(timeGo);
+  $('#timerTime').text('0');
+  increase = 0;
+  $('#start').on();
+
+  $('#reset').css('opacity', 0.5);
+  $('#stop').css('opacity', 1);
+  $('#start').css('opacity', 1);
+  on = false;
+ });
+
+
+
+function timerTime() { //timer counter
+  increase++;
+ $('#timerTime').text(increase);
+}
+
+
+})();
+
