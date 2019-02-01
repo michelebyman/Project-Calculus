@@ -1,7 +1,23 @@
 // Create arrays with button values
-const FUNCTION_BUTTON_1 = ["AC", "C", "onemore"];
+const FUNCTION_BUTTON_1 = ["AC", "C", "Store"];
 const FUNCTION_BUTTON_2 = ["/", "*", "-", "+", "="];
 const NUMBERS = [7,8,9,4,5,6,1,2,3,0,","];
+const MORE_FUNCTIONS = ["^", "(", ")", "v-"];
+
+// Fill button containers with buttons
+for (let symbol of FUNCTION_BUTTON_1){
+  $(".functionButtons1").append("<button class='func1'>" + symbol + "</button>");
+}
+for(let number of NUMBERS){
+  $(".numbers").append("<button>" + number + "</button>");
+}
+for(let symbol of FUNCTION_BUTTON_2){
+  $(".functionButtons2").append("<button class='func2'>" + symbol + "</button>");
+}
+for(let symbol of MORE_FUNCTIONS){
+  $(".moreFunctions").append("<button class='moreF'>" + symbol + "</button>");
+}
+
 
 // Create variables for buttons and display
 const BUTTONS = document.getElementsByTagName("button");
@@ -121,7 +137,7 @@ let history = [];
 $('body').prepend('<div id="historyBox"></div>');
 $('#historyBox').css({
   width: '28rem',
-  height: '50rem',
+  height: '60rem',
   fontSize: '24px',
   overflow: 'auto',
   backgroundColor: '#333',
