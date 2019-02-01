@@ -26,16 +26,17 @@ body {
 }
 
 .wrapper {
-  width: 28rem;
+  width: 32rem;
   height: 60rem;
   border-radius: 0 1rem 1rem 0;
   border: 3px solid white;
   border-left: 0px;
+  padding: 22px;
 }
 
 .display {
   font-family: 'Quantico', sans-serif;
-  width: 27.3rem;
+  width: 100%;
   height: 20%;
   font-size: 4rem;
   text-align: end;
@@ -43,7 +44,7 @@ body {
   color: white;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  margin-right: .5rem;
+  padding-right: 10px;
 }
 
 .moreFunctions {
@@ -56,7 +57,7 @@ body {
 }
 
 .moreFunctions>button {
-  
+
   background-color: #a7a4a7;
   border: none;
   width: 6rem;
@@ -147,7 +148,7 @@ body {
 button {
   font-size: 3rem;
   transition: 300ms all;
-  font-family: 'Quantico', sans-serif;  
+  font-family: 'Quantico', sans-serif;
 }
 
 button:active {
