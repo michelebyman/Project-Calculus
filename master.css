@@ -20,13 +20,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: pink;
+  background-image: url("background.jpg");
 }
 
 .wrapper {
   width: 28rem;
   height: 50rem;
   border-radius: 0 1rem 1rem 0;
+  border: 3px solid white;
+  border-left: 0px;
 }
 
 .display {
@@ -121,6 +123,20 @@ body {
 
 button {
   font-size: 3rem;
+  transition: 300ms all;
+}
+
+button:active {
+  filter: brightness(150%);
+}
+
+.functionButtons2 button:focus:not(:last-child) {
+  background-color: white;
+  color: orange;
+}
+.functionButtons2 button:active:last-child {
+  opacity: 0.6;
+  filter: brightness(100%);
 }
 
 .wrapper,
@@ -134,7 +150,7 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 1rem; 
+  margin-left: 1rem;
 }
 
 .toggleButton {
@@ -143,8 +159,8 @@ button {
   height: 5rem;
   font-size: 2rem;
   text-align: center;
-  border-radius: .5rem; 
-  padding-top: 1.2rem; 
+  border-radius: .5rem;
+  padding-top: 1.2rem;
   margin-top: 1.5rem;
   }
 
@@ -153,10 +169,11 @@ width: 7rem;
 height: 5rem;
 font-size: 2rem;
 text-align: center;
-border-radius: .5rem; 
-padding-top: 1.2rem; 
+border-radius: .5rem;
+padding-top: 1.2rem;
 margin-top: 1.5rem;
 }
+
 
 #start {
 background-color: #5cb85c;
@@ -164,10 +181,6 @@ background-color: #5cb85c;
 
 #stop {
   background-color: #d9534f;
-}
-
-#pause {
-  background-color:#337ab7;
 }
 
 #reset {

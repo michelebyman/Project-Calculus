@@ -119,8 +119,11 @@ $('#historyBox').css({
   padding: '20px',
   border: '0 solid',
   borderRadius: '10px 0 0 10px',
-  overflowWrap: 'break-word'
+  overflowWrap: 'break-word',
+  border: "3px solid white",
+  borderRight: "none"
 });
+
 $('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
 
 
