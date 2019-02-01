@@ -1,6 +1,7 @@
 * {
   border: 0;
   padding: 0;
+  margin: 0;
 }
 
 html {
@@ -186,28 +187,35 @@ button:active {
 .timerButtons {
 width: 7rem;
 height: 5rem;
-font-size: 2rem;
+font-size: 1.5rem;
 text-align: center;
 border-radius: .5rem;
-padding-top: 1.2rem;
 margin-top: 1.5rem;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #f8f8f8;
 }
 
 
 #start {
 background-color: #5cb85c;
+transition: 200ms;
 }
 
 #stop {
   background-color: #d9534f;
+  transition: 200ms;
 }
 
 #reset {
   background-color:#f0ad4e;
+  transition: 200ms;
 }
 
 #timerTime {
   font-size: 3rem;
+  color: white;
 }
 
 span{
