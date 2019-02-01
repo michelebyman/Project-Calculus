@@ -1,8 +1,8 @@
 // Create arrays with button values
-const FUNCTION_BUTTON_1 = ["AC", "C", "Store"];
+const FUNCTION_BUTTON_1 = ["AC", "C", "M"];
 const FUNCTION_BUTTON_2 = ["/", "*", "-", "+", "="];
 const NUMBERS = [7,8,9,4,5,6,1,2,3,0,","];
-const MORE_FUNCTIONS = ["^", "(", ")", "v-"];
+const MORE_FUNCTIONS = ["x", "(", ")", "&#8730;"];
 
 
 
@@ -122,6 +122,7 @@ function calc(string){
   }
 }
 
+$('.moreFunctions button:first-child').append('<sup>y</sup>');
 
 // List of calculated expressions
 let history = [];
