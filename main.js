@@ -1,6 +1,6 @@
 
 //Imports functions from another js-file
-import {keyPressed, handleKeyPress, calc} from '../functions.js';
+import {keyPressed, handleKeyPress} from '../functions.js';
 
 //timer reset
 let increase = 0;
@@ -117,6 +117,22 @@ function addEvents(array){
 
 
 createButtons(addEvents);
+
+function calc(string){
+  // If the string to evaluate contains a number, then an operator, then a number
+  if(string.match(/[0-9][*/+-][0-9]/)){
+
+    // Add the calculation to the history arrays
+    history.push(string + "=" + eval(string));
+    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>")
+    $("#counter").text('Lines: ' + history.length);
+
+    DISPLAY.value = eval(string).toString();
+
+    // Evaluate it and draw it on the display
+    return string = eval(string).toString();
+  }
+}
 
 $('.moreFunctions button:first-child').append('<sup>y</sup>');
 
