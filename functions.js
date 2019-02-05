@@ -11,11 +11,16 @@ export function handleKeyPress(keyCode) {
   }
 }
 
-export function calc(){
+export function calc(string){
   // If the string to evaluate contains a number, then an operator, then a number
-  if(evalString.match(/[0-9][*/+-][0-9]/)){
+  if(string.match(/[0-9][*/+-][0-9]/)){
+
+    // Add the calculation to the history arrays
+    history.push(string + "=" + eval(string));
+    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>")
+    $("#counter").text('Lines: ' + history.length);
     // Evaluate it and draw it on the display
-    evalString = eval(evalString).toString();
-    DISPLAY[0].value = evalString.toString();
+    string = eval(string).toString();
+    DISPLAY.value = string.toString();
   }
 }
