@@ -1,3 +1,5 @@
+//Imports functions from another js-file
+import {keyPressed, handleKeyPress, calc} from '../functions.js';
 
 //timer reset
 let increase = 0;
@@ -78,14 +80,7 @@ for (let button of BUTTONS) {
   }
 }
 
-function calc(){
-  // If the string to evaluate contains a number, then an operator, then a number
-  if(evalString.match(/[0-9][*/+-][0-9]/)){
-    // Evaluate it and draw it on the display
-    evalString = eval(evalString).toString();
-    DISPLAY[0].value = evalString.toString();
-  }
-}
+
 
 
 (function theTimer(){
@@ -136,6 +131,4 @@ function timerTime() { //timer counter
 
 })();
 
-export default {
- calc()
-}
+document.addEventListener("keydown", keyPressed);
