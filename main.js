@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //Imports functions from another js-file
 import {keyPressed, handleKeyPress, calc} from '../functions.js';
 
@@ -5,86 +6,167 @@ import {keyPressed, handleKeyPress, calc} from '../functions.js';
 let increase = 0;
 let timeGo;
 
+=======
+>>>>>>> master
 // Create arrays with button values
-const FUNCTION_BUTTON_1 = ["AC", "C", "onemore"];
+const FUNCTION_BUTTON_1 = ["AC", "C", "M"];
 const FUNCTION_BUTTON_2 = ["/", "*", "-", "+", "="];
 const NUMBERS = [7,8,9,4,5,6,1,2,3,0,","];
+const MORE_FUNCTIONS = ["x", "(", ")", "&#8730;"];
 
-// Fill button containers with buttons
-for (let symbol of FUNCTION_BUTTON_1){
-  $(".functionButtons1").append("<button class='func1'>" + symbol + "</button>");
-}
-for(let number of NUMBERS){
-  $(".numbers").append("<button>" + number + "</button>");
-}
-for(let symbol of FUNCTION_BUTTON_2){
-  $(".functionButtons2").append("<button class='func2'>" + symbol + "</button>");
-}
+
+
 
 // Create variables for buttons and display
 const BUTTONS = document.getElementsByTagName("button");
-const DISPLAY = $(".display");
+const DISPLAY = $(".display")[0];
 
 // Some global variables
 let evalString = "";
 let clear = false;
+let equalsPressed = false;
 
-// Add event listeners to all buttons
-for (let button of BUTTONS) {
-  if (button.classList == "func1"){
-    button.addEventListener("click", function(){
-      if(button.innerHTML == "AC"){
-        DISPLAY[0].value = "0";
-        evalString = "";
-      }
-    })
-  }else if (button.classList == "func2") {
-    // Event listener for "function 1" buttons
-    button.addEventListener("click", function() {
+function createButtons(callback){
+  // Fill button containers with buttons
+  for (let symbol of FUNCTION_BUTTON_1){
+    $(".functionButtons1").append("<button class='func1'>" + symbol + "</button>");
+  }
+  for(let number of NUMBERS){
+    $(".numbers").append("<button>" + number + "</button>");
+  }
+  for(let symbol of FUNCTION_BUTTON_2){
+    $(".functionButtons2").append("<button class='func2'>" + symbol + "</button>");
+  }
+  for(let symbol of MORE_FUNCTIONS){
+    $(".moreFunctions").append("<button class='moreF'>" + symbol + "</button>");
+  }
 
-      // If the button has the value "="
-      if(button.innerHTML == "="){
-        calc()
-      }else{
-        calc()
+  callback(FUNCTION_BUTTON_1);
+  callback(FUNCTION_BUTTON_2);
+  callback(NUMBERS);
+}
 
-        let lastChar = evalString.substr(evalString.length - 1);
-
-        // If the last character in evalString isn't an operator
-        if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
-          // Append an operator to evalString
-          evalString += this.innerHTML;
-        }else{
-          // Remove the last character and append an operator
-          evalString = evalString.substr(0, evalString.length - 1);
-          evalString += this.innerHTML;
+function addEvents(array){
+  for (let button of BUTTONS){
+    switch(array){
+      case FUNCTION_BUTTON_1:
+        if(button.classList == "func1"){
+          button.addEventListener("click", function(){
+            if(button.innerHTML == "AC"){
+              DISPLAY.value = "0";
+              evalString = "";
+            }
+          });
         }
-      }
-      // Set clear to true to clear the display after an operator is appended
-      clear = true;
-    });
-  }else{
-    // Event listeners for number buttons
-    button.addEventListener("click", function() {
-      // If the value in the display is 0..
-      if(DISPLAY[0].value == 0 || clear){
-        // ..Replace the value
-        DISPLAY[0].value = this.innerHTML;
-        clear = false;
-      }else{
-        // ..Append a value
-        DISPLAY[0].value += this.innerHTML;
-      }
-      evalString += this.innerHTML;
-    });
+        break;
+      case FUNCTION_BUTTON_2:
+        if(button.classList == "func2"){
+          button.addEventListener("click", function() {
+            // If the button has the value "="
+            if(button.innerHTML == "="){
+              equalsPressed = true;
+              calc(evalString)
+            }else{
+              calc(evalString)
+
+              let lastChar = evalString.substr(evalString.length - 1);
+
+              // If the last character in evalString isn't an operator
+              if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
+                // Append an operator to evalString
+                evalString += this.innerHTML;
+              }else{
+                // Remove the last character and append an operator
+                evalString = evalString.substr(0, evalString.length - 1);
+                evalString += this.innerHTML;
+              }
+            }
+            // Set clear to true to clear the display after an operator is appended
+            clear = true;
+          });
+        }
+        break;
+      case NUMBERS:
+        if(button.classList != "func1" && button.classList != "func2"){
+          button.addEventListener("click", function() {
+            // If the value in the display is 0..
+            if(equalsPressed){
+              DISPLAY.value = this.innerHTML;
+              evalString = this.innerHTML;
+              equalsPressed = false;
+            }else if(DISPLAY.value == 0 || clear){
+              // ..Replace the value
+              DISPLAY.value = this.innerHTML;
+              evalString += this.innerHTML;
+              clear = false;
+            }else{
+              // ..Append a value ()
+              if(this.innerHTML == ","){
+                DISPLAY.value += ".";
+                evalString += ".";
+              }else{
+                DISPLAY.value += this.innerHTML;
+                evalString += this.innerHTML;
+              }
+            }
+          });
+        }
+        break;
+    }
   }
 }
 
+<<<<<<< HEAD
 
+=======
+createButtons(addEvents);
+
+function calc(string){
+  // If the string to evaluate contains a number, then an operator, then a number
+  if(string.match(/[0-9][*/+-][0-9]/)){
+
+    // Add the calculation to the history arrays
+    history.push(string + "=" + eval(string));
+    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>")
+    $("#counter").text('Lines: ' + history.length);
+    // Evaluate it and draw it on the display
+    string = eval(string).toString();
+    DISPLAY.value = string.toString();
+  }
+}
+>>>>>>> master
+
+$('.moreFunctions button:first-child').append('<sup>y</sup>');
+
+// List of calculated expressions
+let history = [];
+$('body').prepend('<div id="historyBox"></div>');
+$('#historyBox').css({
+  width: '28rem',
+  height: '60rem',
+  fontSize: '24px',
+  overflow: 'auto',
+  backgroundColor: '#333',
+  color: '#ccc',
+  padding: '20px',
+  border: '0 solid',
+  borderRadius: '10px 0 0 10px',
+  overflowWrap: 'break-word',
+  border: "3px solid white",
+  borderRight: "none"
+});
+
+$('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
 
 
 (function theTimer(){
 
+<<<<<<< HEAD
+=======
+//timer reset
+let increase = 0;
+let timeGo;
+>>>>>>> master
 let on = false;
 
 $('#start').on('click', function() {
@@ -130,5 +212,8 @@ function timerTime() { //timer counter
 }
 
 })();
+<<<<<<< HEAD
 
 document.addEventListener("keydown", keyPressed);
+=======
+>>>>>>> master
