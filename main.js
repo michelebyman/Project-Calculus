@@ -196,3 +196,35 @@ function timerTime() { //timer counter
 
 
 })();
+
+$("#historyBox").css({
+  position:"absolute",
+  left:"630px",
+  backgroundColor: "black"
+  
+})
+
+let slide = true;
+
+$(".func1:last-child").on("click", function(){
+
+  if (slide  === true) {
+    slide = false;
+    $("#historyBox").animate({
+      left:"360px",
+    });
+    $("#historyBox p").animate({
+      opacity:'1'
+    });
+  } else if(slide === false) {
+    slide = true;
+  $("#historyBox").animate({
+    left:"630px",
+   
+  });
+  $("#historyBox p").animate({
+    opacity:'0'
+  });
+}
+});
+
