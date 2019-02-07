@@ -44,26 +44,32 @@ function createButtons(){
       console.log("eval: "+evalString);
     });
 
-    $(document).keydown(function(){
-
-    });
+    
   }
 
   addEvents();
 }
 
+// Function for the number buttons
 function numberEvent(){
+  // If the previous button pressed was "="..
   if(equalsPressed){
+    // ..Replace the value in the display with the value of the button pressed
     $(".display")[0].value = currentButton.html();
+    // ..Replace the value of evalString
     evalString = currentButton.html();
+    // ..Set equalsPressed to false
     equalsPressed = false;
+  // If the value in the display is "0" or clear is set to true
   }else if($(".display")[0].value == 0 || clear){
-    // ..Replace the value
+    // ..Replace the value in the display
     $(".display")[0].value = currentButton.html();
+    // ..Append the value to evalString
     evalString += currentButton.html();
+    // ..Set clear to false
     clear = false;
   }else{
-    // ..Append a value ()
+    // If we try to add ",", add "." instead
     if(currentButton.html() == ","){
       $(".display")[0].value += ".";
       evalString += ".";
@@ -74,25 +80,53 @@ function numberEvent(){
   }
 }
 
+// Function for the first group of "function buttons"
 function func1Event(){
+  // If the value of the button is "AC"..
   if(currentButton.html() == "AC"){
+    // ..Set the display and evalString to 0 and "" respectively
     $(".display")[0].value = "0";
+    // document.querySelector(".display").innerHTML = "0";
     evalString = "";
+  }
+
+  // If the value of the button is "C"..
+  if(currentButton.html() == "C"){
+    // If the length of the value in the display is 1..
+    if($(".display")[0].value.length == 1){
+      // ..Set the display to "0" and clear the evalString
+      $(".display")[0].value = "0";
+      evalString = "";
+    }else{
+      // ..Else remove the last character in the display and evalString
+      $(".display")[0].value = $(".display")[0].value.slice(0, -1);
+      evalString = evalString.slice(0, -1);
+    }
   }
 }
 
+// Function for the second group of "function buttons"
 function func2Event(){
+  // If the value of the button is "="..
   if(currentButton.html() == "="){
+    // ..Set equalsPressed to true
     equalsPressed = true;
+    // ..Run the calculation
     calc(evalString)
   }else{
+    // If equalsPressed is true i.e. the previous button pressed was "="..
     if(equalsPressed){
+      // ..Set evalString to the sum of itself
       evalString = eval(evalString).toString();
+      // ..Append the value of the button to evalString
       evalString += currentButton.html();
       equalsPressed = false;
     }
+
+    // Run the calculation
     calc(evalString)
 
+    // Get the last character of evalString
     let lastChar = evalString.substr(evalString.length - 1);
 
     // If the last character in evalString isn't an operator
@@ -136,14 +170,15 @@ $('#historyBox').css({
   height: '60rem',
   fontSize: '24px',
   overflow: 'auto',
-  backgroundColor: '#333',
   color: '#ccc',
   padding: '20px',
-  border: '0 solid',
   borderRadius: '10px 0 0 10px',
   overflowWrap: 'break-word',
   border: "3px solid white",
-  borderRight: "none"
+  borderWidth: "3px 0 3px 3px",
+  backgroundColor: "black",
+  position: 'absolute',
+  left:"37%"
 });
 
 $('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
@@ -201,13 +236,6 @@ function timerTime() { //timer counter
 
 })();
 
-$("#historyBox").css({
-  position:"absolute",
-  left:"630px",
-  backgroundColor: "black"
-  
-})
-
 let slide = true;
 
 $(".func1:last-child").on("click", function(){
@@ -215,15 +243,15 @@ $(".func1:last-child").on("click", function(){
   if (slide  === true) {
     slide = false;
     $("#historyBox").animate({
-      left:"360px",
+      left:"21.5%",
     });
     $("#historyBox p").animate({
       opacity:'1'
-    });
+    },1500);
   } else if(slide === false) {
     slide = true;
   $("#historyBox").animate({
-    left:"630px",
+    left:"37%",     
    
   });
   $("#historyBox p").animate({
@@ -231,4 +259,11 @@ $(".func1:last-child").on("click", function(){
   });
 }
 });
+
+$(window).ready(function() {
+ $('.timeWrapper ').animate({
+ opacity: 1
+ },4000);
+});
+
 
