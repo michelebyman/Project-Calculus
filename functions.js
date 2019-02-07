@@ -1,8 +1,7 @@
 // Writes functions with the export value so we can get them from other js-files
 export function keyPressed(e){
   console.log(e.key);
-  handleKeyPress(e.key)
-
+  handleKeyPress(e.key);
 };
 
 export function handleKeyPress(keyCode) {
@@ -10,7 +9,7 @@ export function handleKeyPress(keyCode) {
     return keyCode;
   }
 }
-// 
+//
 // export function calc(string){
 //   // If the string to evaluate contains a number, then an operator, then a number
 //   if(string.match(/[0-9][*/+-][0-9]/)){

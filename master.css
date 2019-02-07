@@ -2,6 +2,7 @@
   border: 0;
   padding: 0;
   margin: 0;
+  box-sizing: inherit;
 }
 
 html {
@@ -9,11 +10,6 @@ html {
   font-size: 62.5%;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
 
 
 body {
@@ -32,6 +28,7 @@ body {
   border: 3px solid white;
   border-left: 0px;
   padding: 22px;
+  z-index: 2;
 }
 
 .display {
@@ -225,4 +222,8 @@ transition: 200ms;
 
 span{
   margin-right: 10px;
+}
+
+button, .timerButtons{
+  cursor: pointer;
 }
