@@ -12,6 +12,8 @@ html {
 
 
 
+
+
 body {
   font-family: 'Quantico', sans-serif;
   height: 100vh;
@@ -19,6 +21,13 @@ body {
   justify-content: center;
   align-items: center;
   background-image: url("background.jpg");
+}
+
+.mainWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .wrapper {
@@ -161,18 +170,21 @@ button:active {
   filter: brightness(100%);
 }
 
-.wrapper,
-.display {
+.wrapper, .display {
   background-color: #000;
 }
 
 
+
+
 .timeWrapper {
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-left: 1rem;
+  opacity: 0;
 }
 
 .toggleButton {
@@ -226,4 +238,8 @@ span{
 
 button, .timerButtons{
   cursor: pointer;
+}
+
+#counter  {
+opacity: 0;
 }

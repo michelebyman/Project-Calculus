@@ -1,31 +1,15 @@
-
-//Imports functions from another js-file
-import {keyPressed, handleKeyPress} from '../functions.js';
-
-//timer reset
-let increase = 0;
-let timeGo;
-
-
-// Create arrays with button values
-const FUNCTION_BUTTON_1 = ["AC", "C", "M"];
-const FUNCTION_BUTTON_2 = ["/", "*", "-", "+", "="];
-const NUMBERS = [7,8,9,4,5,6,1,2,3,0,","];
-const MORE_FUNCTIONS = ["x", "(", ")", "&#8730;"];
-
-
-
-
-// Create variables for buttons and display
-const BUTTONS = document.getElementsByTagName("button");
-const DISPLAY = $(".display")[0];
-
-// Some global variables
 let evalString = "";
 let clear = false;
 let equalsPressed = false;
+let currentButton;
 
-function createButtons(callback){
+function createButtons(){
+  // Create groups of buttons
+  const FUNCTION_BUTTON_1 = ["AC", "C", "M"];
+  const FUNCTION_BUTTON_2 = ["/", "*", "-", "+", "="];
+  const NUMBERS = [7,8,9,4,5,6,1,2,3,0,","];
+  const MORE_FUNCTIONS = ["x", "(", ")", "&#8730;"];
+
   // Fill button containers with buttons
   for (let symbol of FUNCTION_BUTTON_1){
     $(".functionButtons1").append("<button class='func1'>" + symbol + "</button>");
@@ -40,83 +24,126 @@ function createButtons(callback){
     $(".moreFunctions").append("<button class='moreF'>" + symbol + "</button>");
   }
 
-  callback(FUNCTION_BUTTON_1);
-  callback(FUNCTION_BUTTON_2);
-  callback(NUMBERS);
+  function addEvents(){
+    $("button").click(function(){
+      currentButton = $(this);
+
+      switch ($(this).parent().prop("className")){
+        case "numbers":
+          numberEvent();
+          break;
+        case "functionButtons1":
+          func1Event();
+          break;
+        case "functionButtons2":
+          func2Event();
+          break;
+      }
+
+      console.log("current: "+currentButton.html())
+      console.log("eval: "+evalString);
+    });
+
+    
+  }
+
+  addEvents();
 }
 
-function addEvents(array){
-  for (let button of BUTTONS){
-    switch(array){
-      case FUNCTION_BUTTON_1:
-        if(button.classList == "func1"){
-          button.addEventListener("click", function(){
-            if(button.innerHTML == "AC"){
-              DISPLAY.value = "0";
-              evalString = "";
-            }
-          });
-        }
-        break;
-      case FUNCTION_BUTTON_2:
-        if(button.classList == "func2"){
-          button.addEventListener("click", function() {
-            // If the button has the value "="
-            if(button.innerHTML == "="){
-              equalsPressed = true;
-              calc(evalString)
-            }else{
-              calc(evalString)
-
-              let lastChar = evalString.substr(evalString.length - 1);
-
-              // If the last character in evalString isn't an operator
-              if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
-                // Append an operator to evalString
-                evalString += this.innerHTML;
-              }else{
-                // Remove the last character and append an operator
-                evalString = evalString.substr(0, evalString.length - 1);
-                evalString += this.innerHTML;
-              }
-            }
-            // Set clear to true to clear the display after an operator is appended
-            clear = true;
-          });
-        }
-        break;
-      case NUMBERS:
-        if(button.classList != "func1" && button.classList != "func2"){
-          button.addEventListener("click", function() {
-            // If the value in the display is 0..
-            if(equalsPressed){
-              DISPLAY.value = this.innerHTML;
-              evalString = this.innerHTML;
-              equalsPressed = false;
-            }else if(DISPLAY.value == 0 || clear){
-              // ..Replace the value
-              DISPLAY.value = this.innerHTML;
-              evalString += this.innerHTML;
-              clear = false;
-            }else{
-              // ..Append a value ()
-              if(this.innerHTML == ","){
-                DISPLAY.value += ".";
-                evalString += ".";
-              }else{
-                DISPLAY.value += this.innerHTML;
-                evalString += this.innerHTML;
-              }
-            }
-          });
-        }
-        break;
+// Function for the number buttons
+function numberEvent(){
+  // If the previous button pressed was "="..
+  if(equalsPressed){
+    // ..Replace the value in the display with the value of the button pressed
+    $(".display")[0].value = currentButton.html();
+    // ..Replace the value of evalString
+    evalString = currentButton.html();
+    // ..Set equalsPressed to false
+    equalsPressed = false;
+  // If the value in the display is "0" or clear is set to true
+  }else if($(".display")[0].value == 0 || clear){
+    // ..Replace the value in the display
+    $(".display")[0].value = currentButton.html();
+    // ..Append the value to evalString
+    evalString += currentButton.html();
+    // ..Set clear to false
+    clear = false;
+  }else{
+    // If we try to add ",", add "." instead
+    if(currentButton.html() == ","){
+      $(".display")[0].value += ".";
+      evalString += ".";
+    }else{
+      $(".display")[0].value += currentButton.html();
+      evalString += currentButton.html();
     }
   }
 }
 
+// Function for the first group of "function buttons"
+function func1Event(){
+  // If the value of the button is "AC"..
+  if(currentButton.html() == "AC"){
+    // ..Set the display and evalString to 0 and "" respectively
+    $(".display")[0].value = "0";
+    // document.querySelector(".display").innerHTML = "0";
+    evalString = "";
+  }
 
-createButtons(addEvents);
+  // If the value of the button is "C"..
+  if(currentButton.html() == "C"){
+    // If the length of the value in the display is 1..
+    if($(".display")[0].value.length == 1){
+      // ..Set the display to "0" and clear the evalString
+      $(".display")[0].value = "0";
+      evalString = "";
+    }else{
+      // ..Else remove the last character in the display and evalString
+      $(".display")[0].value = $(".display")[0].value.slice(0, -1);
+      evalString = evalString.slice(0, -1);
+    }
+  }
+}
+
+// Function for the second group of "function buttons"
+function func2Event(){
+  // If the value of the button is "="..
+  if(currentButton.html() == "="){
+    // ..Set equalsPressed to true
+    equalsPressed = true;
+    // ..Run the calculation
+    calc(evalString)
+  }else{
+    // If equalsPressed is true i.e. the previous button pressed was "="..
+    if(equalsPressed){
+      // ..Set evalString to the sum of itself
+      evalString = eval(evalString).toString();
+      // ..Append the value of the button to evalString
+      evalString += currentButton.html();
+      equalsPressed = false;
+    }
+
+    // Run the calculation
+    calc(evalString)
+
+    // Get the last character of evalString
+    let lastChar = evalString.substr(evalString.length - 1);
+
+    // If the last character in evalString isn't an operator
+    if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
+      // Append an operator to evalString
+      evalString += currentButton.html();
+    }else{
+      // Remove the last character and append an operator
+      evalString = evalString.substr(0, evalString.length - 1);
+      evalString += currentButton.html();
+    }
+  }
+  // Set clear to true to clear the display after an operator is appended
+  clear = true;
+}
+
+createButtons();
 
 function calc(string){
   // If the string to evaluate contains a number, then an operator, then a number
@@ -130,7 +157,9 @@ function calc(string){
     DISPLAY.value = eval(string).toString();
 
     // Evaluate it and draw it on the display
-    return string = eval(string).toString();
+    string = eval(string).toString();
+    $(".display")[0].value = string.toString();
+    evalString = string;
   }
 }
 
@@ -144,14 +173,15 @@ $('#historyBox').css({
   height: '60rem',
   fontSize: '24px',
   overflow: 'auto',
-  backgroundColor: '#333',
   color: '#ccc',
   padding: '20px',
-  border: '0 solid',
   borderRadius: '10px 0 0 10px',
   overflowWrap: 'break-word',
   border: "3px solid white",
-  borderRight: "none"
+  borderWidth: "3px 0 3px 3px",
+  backgroundColor: "black",
+  position: 'absolute',
+  left:"37%"
 });
 
 $('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
@@ -210,5 +240,52 @@ function timerTime() { //timer counter
 
 })();
 
+<<<<<<< HEAD
+$("#historyBox").css({
+  position:"absolute",
+  left:"630px",
+  backgroundColor: "black"
 
-document.addEventListener("keydown", keyPressed);
+})
+
+=======
+>>>>>>> master
+let slide = true;
+
+$(".func1:last-child").on("click", function(){
+
+  if (slide  === true) {
+    slide = false;
+    $("#historyBox").animate({
+      left:"21.5%",
+    });
+    $("#historyBox p").animate({
+      opacity:'1'
+    },1500);
+  } else if(slide === false) {
+    slide = true;
+  $("#historyBox").animate({
+<<<<<<< HEAD
+    left:"630px",
+
+=======
+    left:"37%",     
+   
+>>>>>>> master
+  });
+  $("#historyBox p").animate({
+    opacity:'0'
+  });
+}
+});
+<<<<<<< HEAD
+=======
+
+$(window).ready(function() {
+ $('.timeWrapper ').animate({
+ opacity: 1
+ },4000);
+});
+
+
+>>>>>>> master
