@@ -3,7 +3,7 @@ import assert from 'assert';
 import { calc } from '../functions.js';
 
 describe('calc()', function(){
-  it('Should summarize the values in the string', function(){
+  it('Test mathematicao expression', function(){
     assert.equal(calc("1+1"), 2);
   });
 });

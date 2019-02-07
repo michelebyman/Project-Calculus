@@ -105,7 +105,7 @@ function func2Event(button){
     // ..Set equalsPressed to true
     equalsPressed = true;
     // ..Run the calculation
-    calc(evalString);
+    doEvalution(evalString);
   }else{
     // If equalsPressed is true i.e. the previous button pressed was "="..
     if(equalsPressed){
@@ -117,7 +117,7 @@ function func2Event(button){
     }
 
     // Run the calculation
-    calc(evalString);
+    doEvalution(evalString);
 
     // Get the last character of evalString
     let lastChar = evalString.substr(evalString.length - 1);
@@ -138,19 +138,26 @@ function func2Event(button){
 
 createButtons();
 
-function calc(string){
+function doEvalution(string) {
+  // If the string to evaluate contains a number, then an operator, then a number
+    const result = calc(string);
+
+    if(result != undefined){
+      history.push(string + "=" + result);
+      $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>");
+      $("#counter").text('Lines: ' + history.length);
+
+      // Evaluate it and draw it on the display
+      $(".display")[0].value = result.toString();
+      evalString = result;
+    }
+}
+
+function calc(string) {
   // If the string to evaluate contains a number, then an operator, then a number
   if(string.match(/[0-9][*/+-][0-9]/)){
-
-    // Add the calculation to the history arrays
-    history.push(string + "=" + eval(string));
-    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>");
-    $("#counter").text('Lines: ' + history.length);
-
     // Evaluate it and draw it on the display
-    string = eval(string).toString();
-    $(".display")[0].value = string.toString();
-    evalString = string;
+    return eval(string).toString();
   }
 }
 
