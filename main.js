@@ -53,6 +53,7 @@ function numberEvent(button){
     evalString = button.html();
     // ..Set equalsPressed to false
     equalsPressed = false;
+    clear = false;
   // If the value in the display is "0" or clear is set to true
   }else if($(".display")[0].value == 0 || clear){
     // ..Replace the value in the display
@@ -160,7 +161,7 @@ function calc(string) {
       // Evaluate it and draw it on the display
       return eval(string).toString();
     }else{
-      return string;
+      return undefined;
     }
   }else{
     return "error";

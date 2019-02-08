@@ -13,9 +13,9 @@ describe('calc()', function(){
     assert.equal(calc(null), "error");
   });
   it('Test if .match accepts letters', function() {
-    assert.equal(calc("a+b"), "a+b");
+    assert.equal(calc("a+b"), undefined);
   });
   it('Test if .match accepts multiple operators', function() {
-    assert.equal(calc("1++1"), "1++1");
+    assert.equal(calc("1++1"), undefined);
   });
 });
