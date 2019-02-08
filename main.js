@@ -173,8 +173,8 @@ $('.moreFunctions button:first-child').append('<sup>y</sup>');
 let history = [];
 $('.mainWrapper').prepend('<div id="historyBox"></div>');
 $('#historyBox').css({
-  width: '28rem',
-  height: '60rem',
+  width: '280px',
+  height: '600px',
   fontSize: '24px',
   overflow: 'auto',
   color: '#ccc',
@@ -250,6 +250,8 @@ function timerTime() { //timer counter
 
 let slide = false;
 
+
+//if you press the last child 
 $(".func1:last-child").on("click", function(){
 
   if (slide  === false) {
