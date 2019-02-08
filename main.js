@@ -1,3 +1,6 @@
+
+
+
 let evalString = "";
 let clear = false;
 let equalsPressed = false;
@@ -133,6 +136,7 @@ function func2Event(){
     if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
       // Append an operator to evalString
       evalString += currentButton.html();
+
     }else{
       // Remove the last character and append an operator
       evalString = evalString.substr(0, evalString.length - 1);
@@ -157,6 +161,10 @@ function calc(string){
     string = eval(string).toString();
     $(".display")[0].value = string.toString();
     evalString = string;
+
+    if (string == 666) {
+    alert('Gosh darn it, hail satan!');  
+    }
   }
 }
 
@@ -164,7 +172,7 @@ $('.moreFunctions button:first-child').append('<sup>y</sup>');
 
 // List of calculated expressions
 let history = [];
-$('body').prepend('<div id="historyBox"></div>');
+$('.mainWrapper').prepend('<div id="historyBox"></div>');
 $('#historyBox').css({
   width: '28rem',
   height: '60rem',
@@ -178,8 +186,12 @@ $('#historyBox').css({
   borderWidth: "3px 0 3px 3px",
   backgroundColor: "black",
   position: 'absolute',
-  left:"37%"
+  left: '-10px'
+  
 });
+
+
+ 
 
 $('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
 
@@ -236,23 +248,23 @@ function timerTime() { //timer counter
 
 })();
 
-let slide = true;
+let slide = false;
 
 $(".func1:last-child").on("click", function(){
 
-  if (slide  === true) {
-    slide = false;
+  if (slide  === false) {
+    slide = true;
     $("#historyBox").animate({
-      left:"21.5%",
-    });
+      left:'-280px'
+    },'slow');
     $("#historyBox p").animate({
       opacity:'1'
-    },1500);
-  } else if(slide === false) {
-    slide = true;
+    },2000);
+  } else if(slide === true) {
+
+    slide = false;
   $("#historyBox").animate({
-    left:"37%",     
-   
+    left: '-10px'
   });
   $("#historyBox p").animate({
     opacity:'0'
@@ -263,7 +275,7 @@ $(".func1:last-child").on("click", function(){
 $(window).ready(function() {
  $('.timeWrapper ').animate({
  opacity: 1
- },4000);
+ },3000);
 });
 
 
