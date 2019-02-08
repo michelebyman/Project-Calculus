@@ -4,6 +4,6 @@ import testfuncs from '../main.js';
 describe('description', function() {
   it('description', function() {
 
-  assert.equal(testfuncs.calc(), )
+  assert.equal(testfuncs.calc(), 6);
   });
 });

@@ -1,6 +1,3 @@
-
-
-
 let evalString = "";
 let clear = false;
 let equalsPressed = false;
@@ -43,11 +40,11 @@ function createButtons(){
           break;
       }
 
-      console.log("current: "+currentButton.html())
+      console.log("current: "+currentButton.html());
       console.log("eval: "+evalString);
     });
 
-    
+
   }
 
   addEvents();
@@ -115,7 +112,7 @@ function func2Event(){
     // ..Set equalsPressed to true
     equalsPressed = true;
     // ..Run the calculation
-    calc(evalString)
+    calc(evalString);
   }else{
     // If equalsPressed is true i.e. the previous button pressed was "="..
     if(equalsPressed){
@@ -127,7 +124,7 @@ function func2Event(){
     }
 
     // Run the calculation
-    calc(evalString)
+    calc(evalString);
 
     // Get the last character of evalString
     let lastChar = evalString.substr(evalString.length - 1);
@@ -155,7 +152,7 @@ function calc(string){
 
     // Add the calculation to the history arrays
     history.push(string + "=" + eval(string));
-    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>")
+    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>");
     $("#counter").text('Lines: ' + history.length);
     // Evaluate it and draw it on the display
     string = eval(string).toString();
@@ -163,7 +160,7 @@ function calc(string){
     evalString = string;
 
     if (string == 666) {
-    alert('Gosh darn it, hail satan!');  
+    alert('Gosh darn it, hail satan!');
     }
   }
 }
@@ -187,11 +184,11 @@ $('#historyBox').css({
   backgroundColor: "black",
   position: 'absolute',
   left: '-10px'
-  
+
 });
 
 
- 
+
 
 $('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
 
@@ -277,5 +274,3 @@ $(window).ready(function() {
  opacity: 1
  },3000);
 });
-
-
