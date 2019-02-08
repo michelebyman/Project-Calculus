@@ -1,0 +1,28 @@
+{
+  "name": "project-calculus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelebyman/Project-Calculus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michelebyman/Project-Calculus/issues"
+  },
+  "homepage": "https://github.com/michelebyman/Project-Calculus#readme",
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "mocha": "^5.2.0"
+  }
+}

@@ -1,7 +1,6 @@
 let evalString = "";
 let clear = false;
 let equalsPressed = false;
-let currentButton;
 
 function createButtons(){
   // Create groups of buttons
@@ -26,24 +25,18 @@ function createButtons(){
 
   function addEvents(){
     $("button").click(function(){
-      currentButton = $(this);
-
       switch ($(this).parent().prop("className")){
         case "numbers":
-          numberEvent();
+          numberEvent($(this));
           break;
         case "functionButtons1":
-          func1Event();
+          func1Event($(this));
           break;
         case "functionButtons2":
-          func2Event();
+          func2Event($(this));
           break;
       }
-
-      console.log("current: "+currentButton.html());
-      console.log("eval: "+evalString);
     });
-
 
   }
 
@@ -51,39 +44,39 @@ function createButtons(){
 }
 
 // Function for the number buttons
-function numberEvent(){
+function numberEvent(button){
   // If the previous button pressed was "="..
   if(equalsPressed){
     // ..Replace the value in the display with the value of the button pressed
-    $(".display")[0].value = currentButton.html();
+    $(".display")[0].value = button.html();
     // ..Replace the value of evalString
-    evalString = currentButton.html();
+    evalString = button.html();
     // ..Set equalsPressed to false
     equalsPressed = false;
   // If the value in the display is "0" or clear is set to true
   }else if($(".display")[0].value == 0 || clear){
     // ..Replace the value in the display
-    $(".display")[0].value = currentButton.html();
+    $(".display")[0].value = button.html();
     // ..Append the value to evalString
-    evalString += currentButton.html();
+    evalString += button.html();
     // ..Set clear to false
     clear = false;
   }else{
     // If we try to add ",", add "." instead
-    if(currentButton.html() == ","){
+    if(button.html() == ","){
       $(".display")[0].value += ".";
       evalString += ".";
     }else{
-      $(".display")[0].value += currentButton.html();
-      evalString += currentButton.html();
+      $(".display")[0].value += button.html();
+      evalString += button.html();
     }
   }
 }
 
 // Function for the first group of "function buttons"
-function func1Event(){
+function func1Event(button){
   // If the value of the button is "AC"..
-  if(currentButton.html() == "AC"){
+  if(button.html() == "AC"){
     // ..Set the display and evalString to 0 and "" respectively
     $(".display")[0].value = "0";
     // document.querySelector(".display").innerHTML = "0";
@@ -91,7 +84,7 @@ function func1Event(){
   }
 
   // If the value of the button is "C"..
-  if(currentButton.html() == "C"){
+  if(button.html() == "C"){
     // If the length of the value in the display is 1..
     if($(".display")[0].value.length == 1){
       // ..Set the display to "0" and clear the evalString
@@ -106,25 +99,25 @@ function func1Event(){
 }
 
 // Function for the second group of "function buttons"
-function func2Event(){
+function func2Event(button){
   // If the value of the button is "="..
-  if(currentButton.html() == "="){
+  if(button.html() == "="){
     // ..Set equalsPressed to true
     equalsPressed = true;
     // ..Run the calculation
-    calc(evalString);
+    doEvalution(evalString);
   }else{
     // If equalsPressed is true i.e. the previous button pressed was "="..
     if(equalsPressed){
       // ..Set evalString to the sum of itself
       evalString = eval(evalString).toString();
       // ..Append the value of the button to evalString
-      evalString += currentButton.html();
+      evalString += button.html();
       equalsPressed = false;
     }
 
     // Run the calculation
-    calc(evalString);
+    doEvalution(evalString);
 
     // Get the last character of evalString
     let lastChar = evalString.substr(evalString.length - 1);
@@ -132,12 +125,11 @@ function func2Event(){
     // If the last character in evalString isn't an operator
     if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/"){
       // Append an operator to evalString
-      evalString += currentButton.html();
-
+      evalString += button.html();
     }else{
       // Remove the last character and append an operator
       evalString = evalString.substr(0, evalString.length - 1);
-      evalString += currentButton.html();
+      evalString += button.html();
     }
   }
   // Set clear to true to clear the display after an operator is appended
@@ -146,22 +138,32 @@ function func2Event(){
 
 createButtons();
 
-function calc(string){
+function doEvalution(string) {
   // If the string to evaluate contains a number, then an operator, then a number
-  if(string.match(/[0-9][*/+-][0-9]/)){
+    const result = calc(string);
 
-    // Add the calculation to the history arrays
-    history.push(string + "=" + eval(string));
-    $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>");
-    $("#counter").text('Lines: ' + history.length);
-    // Evaluate it and draw it on the display
-    string = eval(string).toString();
-    $(".display")[0].value = string.toString();
-    evalString = string;
+    if(result != undefined){
+      history.push(string + "=" + result);
+      $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>");
+      $("#counter").text('Lines: ' + history.length);
 
-    if (string == 666) {
-    alert('Gosh darn it, hail satan!');
+      // Evaluate it and draw it on the display
+      $(".display")[0].value = result.toString();
+      evalString = result;
     }
+}
+
+function calc(string) {
+  if(string != undefined && string != null){
+    // If the string to evaluate contains a number, then an operator, then a number
+    if(string.match(/[0-9][*/+-][0-9]/)){
+      // Evaluate it and draw it on the display
+      return eval(string).toString();
+    }else{
+      return string;
+    }
+  }else{
+    return "error";
   }
 }
 
@@ -195,9 +197,11 @@ $('#historyBox').append("<p id='counter'>Lines: " + history.length + "</p>");
 
 (function theTimer(){
 
+
 //timer reset
 let increase = 0;
 let timeGo;
+
 let on = false;
 
 $('#start').on('click', function() {
@@ -242,7 +246,6 @@ function timerTime() { //timer counter
  $('#timerTime').text(increase);
 }
 
-
 })();
 
 let slide = false;
@@ -268,6 +271,7 @@ $(".func1:last-child").on("click", function(){
   });
 }
 });
+
 
 $(window).ready(function() {
  $('.timeWrapper ').animate({
