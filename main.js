@@ -139,14 +139,24 @@ function func2Event(button){
 
 createButtons();
 
+let historyCounter = 0;
+
 function doEvalution(string) {
   // If the string to evaluate contains a number, then an operator, then a number
     const result = calc(string);
 
     if(result != undefined){
-      history.push(string + "=" + result);
-      $('#historyBox').append("<p><span>" + history.length + ":</span>" + history[history.length - 1] + "</p>");
-      $("#counter").text('Lines: ' + history.length);
+      history.unshift(string + "=" + result);
+
+      historyCounter++;
+      $("#counter").text('Lines: ' + historyCounter);
+
+      $('#counter').after("<p><span>" + historyCounter + ":</span>" + history[0] + "</p>");
+
+      if(history.length > 50){
+        history.pop();
+        $("#historyBox p:last-child").remove();
+      }
 
       // Evaluate it and draw it on the display
       $(".display")[0].value = result.toString();
