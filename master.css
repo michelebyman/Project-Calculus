@@ -10,10 +10,6 @@ html {
   font-size: 62.5%;
 }
 
-
-
-
-
 body {
   font-family: 'Quantico', sans-serif;
   height: 100vh;
@@ -28,6 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+
 }
 
 .wrapper {
@@ -174,9 +171,6 @@ button:active {
   background-color: #000;
 }
 
-
-
-
 .timeWrapper {
   
   display: flex;
@@ -242,4 +236,9 @@ button, .timerButtons{
 
 #counter  {
 opacity: 0;
+}
+
+
+#historyBox p:nth-child(even) {
+  color: #fe9203;
 }
